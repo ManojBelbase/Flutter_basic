@@ -13,8 +13,8 @@ class LandingPage extends StatefulWidget {
 }
 
 class _LandingPageState extends State<LandingPage> {
-  int _currentIndex=0;
-  List<Widget> pages=[
+  int _currentIndex = 0;
+  List<Widget> pages = [
     HomePage(),
     FabPage(),
     ScanPage(),
@@ -23,26 +23,29 @@ class _LandingPageState extends State<LandingPage> {
   ];
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
-        onTap: (value){
-          setState(() {
-            _currentIndex=value;
-          });
-        },
-        currentIndex: _currentIndex,
-        selectedItemColor: Theme.of(context).primaryColor,
-        unselectedItemColor: Colors.black,
-       showSelectedLabels: false,
-       selectedIconTheme: IconThemeData(size: 35.0),
-        items:const [
-        BottomNavigationBarItem(icon:Icon(Icons.home), label: "Home"),
-        BottomNavigationBarItem(icon: Icon(Icons.favorite_border),label: "fav"),
-         BottomNavigationBarItem(icon:Icon(Icons.qr_code_scanner_outlined),label: "qr"),
-          BottomNavigationBarItem(icon:Icon(Icons.shopping_basket),label: "Shoppingh"),
-          BottomNavigationBarItem(icon:Icon(Icons.person),label: "Person"),
-        ]),
-        body: pages[_currentIndex],
+          onTap: (value) {
+            setState(() {
+              _currentIndex = value;
+            });
+          },
+          currentIndex: _currentIndex,
+          selectedItemColor: Theme.of(context).primaryColor,
+          unselectedItemColor: Colors.black,
+          showSelectedLabels: false,
+          selectedIconTheme: IconThemeData(size: 35.0),
+          items: const [
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.favorite_border), label: "fav"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.qr_code_scanner_outlined), label: "qr"),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.shopping_basket), label: "Shoppingh"),
+            BottomNavigationBarItem(icon: Icon(Icons.person), label: "Person"),
+          ]),
+      body: pages[_currentIndex],
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:blue_house/home_title.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -8,36 +9,111 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  static List<Map<String, dynamic>> categories = [
+    {"id": 1, "name": "All"},
+    {"id": 2, "name": "Indoor"},
+    {"id": 3, "name": "Outdoor"},
+    {"id": 4, "name": "Aromatic"},
+    {"id": 5, "name": "Succulent"}
+  ];
+  Map<String, dynamic> selectedCategory = categories.first;
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      appBar: AppBar(title: Text("Home Page"),),
+    double deviceHeight = MediaQuery.of(context).size.height;
+    double devicewidth = MediaQuery.of(context).size.height;
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "Home Page",
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.blue,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ListView(
           children: [
+            // home title widget calling form widget
+            homeTitle(context),
+            SizedBox(
+              height: deviceHeight * 0.02,
+            ),
+            // Search bar section
             Row(
-                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Hello Best plants for\nour Green House", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
-                Stack(
-                  children: [
-                    CircleAvatar(
-                      radius:45,
-                      backgroundImage: NetworkImage("https://imgs.search.brave.com/99m3ILzJDc0zktpcxxXqwDAUPNBfXSEAGZ-HNgv5tG4/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/ZnJlZS1waG90by93/aWRlLWFuZ2xlLXNo/b3Qtc2luZ2xlLXRy/ZWUtZ3Jvd2luZy1j/bG91ZGVkLXNreS1k/dXJpbmctc3Vuc2V0/LXN1cnJvdW5kZWQt/YnktZ3Jhc3NfMTgx/NjI0LTIyODA3Lmpw/Zz9zaXplPTYyNiZl/eHQ9anBn"),
+                Expanded(
+                  child: Card(
+                    elevation: 0,
+                    child: Container(
+                      alignment: Alignment.centerLeft,
+                      height: deviceHeight * 0.06,
+                      padding: EdgeInsets.only(left: 10),
+                      child: Row(
+                        children: [
+                          Icon(Icons.search, color: Colors.grey),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text("Search Plant",
+                              style:
+                                  TextStyle(color: Colors.grey, fontSize: 16))
+                        ],
+                      ),
+                      // width: 300,
                     ),
-                     Positioned(
-                      right: 0,
-                      child: 
-                     CircleAvatar(
-                      radius:15,
-                      backgroundColor: Theme.of(context).primaryColor,
-                      child: Text("2", style: TextStyle(color: Colors.white),),
-        
-                    ))
-                  ],
+                  ),
+                ),
+                SizedBox(
+                  width: devicewidth * 0.01,
+                ),
+                FloatingActionButton(
+                  backgroundColor: Colors.black,
+                  splashColor: Theme.of(context).primaryColor,
+                  onPressed: () {},
+                  child: Icon(
+                    Icons.filter_alt_off_outlined,
+                    color: Colors.white,
+                  ),
                 )
               ],
+            ),
+            // floating selection
+            SizedBox(height: 10),
+            // category bar scrollable
+            SizedBox(
+              height: deviceHeight * 0.06,
+              // color: Colors.red,
+              child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: categories
+                      .map(
+                        (category) => InkWell(
+                          onTap: () {
+                            setState(() {
+                              selectedCategory = category;
+                            });
+                          },
+                          child: Card(
+                            color: category == selectedCategory
+                                ? Theme.of(context).primaryColor
+                                : Colors.white,
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 12, vertical: 10),
+                              child: Text(
+                                category['name'],
+                                style: TextStyle(
+                                    color: category == selectedCategory
+                                        ? Colors.white
+                                        : Colors.grey[600]),
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                      .toList()),
             )
           ],
         ),

@@ -10,6 +10,11 @@ class FabPage extends StatefulWidget {
 class _FabPageState extends State<FabPage> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Favourite page"),
+      ),
+      body: Text("FAv Page"),
+    );
   }
 }
